@@ -1,4 +1,4 @@
--- Skript pro zvýraznění všech hráčů na serveru
+-- Skript pro zvýraznění všech hráčů na serveru viditelných přes zdi
 
 -- Funkce pro vytvoření highlight efektu
 local function highlightPlayer(character)
@@ -7,6 +7,7 @@ local function highlightPlayer(character)
     highlight.Name = "PlayerHighlight"
     highlight.FillColor = Color3.new(1, 0, 0) -- Červená barva
     highlight.OutlineColor = Color3.new(1, 1, 1) -- Bílá barva
+    highlight.DepthMode = Enum.HighlightDepthMode.Always -- Viditelnost přes zdi
     highlight.Parent = character -- Přidání do modelu hráče
 end
 
@@ -22,7 +23,5 @@ end
 
 -- Zvýraznění hráčů, kteří se připojí později
 game.Players.PlayerAdded:Connect(function(player)
-    player.CharacterAdded:Connect(function(character)
-        highlightPlayer(character)
-    end)
-end)
+    p
+
