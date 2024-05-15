@@ -1,0 +1,34 @@
+-- Skript pro umožnění nekonečného skákání bez časového omezení
+
+-- Funkce pro povolení nekonečného skákání
+local function enableInfiniteJumping(character)
+    local humanoid = character:FindFirstChildOfClass("Humanoid")
+    if humanoid then
+        -- Bez omezení času mezi skoky
+        humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping, true)
+        
+        -- Přidání funkce pro nekonečné skákání
+        local userInputService = game:GetService("UserInputService")
+        
+        userInputService.JumpRequest:Connect(function()
+            humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+        end)
+    end
+end
+
+-- Povolení nekonečného skákání pro aktuální hráče
+game.Players.PlayerAdded:Connect(function(player)
+    player.CharacterAdded:Connect(function(character)
+        enableInfiniteJumping(character)
+    end)
+end)
+
+-- Povolení nekonečného skákání pro hráče, kteří jsou již ve hře
+for _, player in pairs(game.Players:GetPlayers()) do
+    if player.Character then
+        enableInfiniteJumping(player.Character)
+    end
+    player.CharacterAdded:Connect(function(character)
+        enableInfiniteJumping(character)
+    end)
+end
