@@ -1,6 +1,6 @@
--- Skript pro zvýraznění všech hráčů na serveru viditelných přes zdi
 
--- Funkce pro vytvoření highlight efektu
+
+
 local function highlightPlayer(character)
     -- Vytvoření nového Highlight objektu
     local highlight = Instance.new("Highlight")
