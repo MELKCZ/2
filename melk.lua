@@ -8,3 +8,4 @@ for _, player in pairs(Players:GetPlayers()) do
         highlight.Adornee = character.PrimaryPart
     end
 end
+
