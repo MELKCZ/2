@@ -1,37 +1,27 @@
--- Skript pro umožnění nekonečného skákání a zvýšení rychlosti
+-- Skript pro zvýšení rychlosti hráče na desetinásobek
 
--- Funkce pro povolení nekonečného skákání a zvýšení rychlosti
-local function enableInfiniteJumpingAndSpeed(character)
+-- Funkce pro zvýšení rychlosti
+local function increaseSpeed(character)
     local humanoid = character:FindFirstChildOfClass("Humanoid")
     if humanoid then
         -- Zvýšení rychlosti na desetinásobek
         humanoid.WalkSpeed = humanoid.WalkSpeed * 10
-
-        -- Bez omezení času mezi skoky
-        humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping, true)
-        
-        -- Přidání funkce pro nekonečné skákání
-        local userInputService = game:GetService("UserInputService")
-        
-        userInputService.JumpRequest:Connect(function()
-            humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-        end)
     end
 end
 
--- Povolení nekonečného skákání a zvýšení rychlosti pro aktuální hráče
+-- Zvýšení rychlosti pro aktuální hráče
 game.Players.PlayerAdded:Connect(function(player)
     player.CharacterAdded:Connect(function(character)
-        enableInfiniteJumpingAndSpeed(character)
+        increaseSpeed(character)
     end)
 end)
 
--- Povolení nekonečného skákání a zvýšení rychlosti pro hráče, kteří jsou již ve hře
+-- Zvýšení rychlosti pro hráče, kteří jsou již ve hře
 for _, player in pairs(game.Players:GetPlayers()) do
     if player.Character then
-        enableInfiniteJumpingAndSpeed(player.Character)
+        increaseSpeed(player.Character)
     end
     player.CharacterAdded:Connect(function(character)
-        enableInfiniteJumpingAndSpeed(character)
+        increaseSpeed(character)
     end)
 end
