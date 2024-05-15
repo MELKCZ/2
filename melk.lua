@@ -1,27 +1,34 @@
--- Skript pro zvýraznění všech hráčů na serveru viditelných přes zdi
+-- Skript pro zvýraznění hlav všech hráčů na serveru viditelných přes zdi
 
 -- Funkce pro vytvoření highlight efektu
-local function highlightPlayer(character)
-    -- Vytvoření nového Highlight objektu
-    local highlight = Instance.new("Highlight")
-    highlight.Name = "PlayerHighlight"
-    highlight.FillColor = Color3.new(1, 0, 0) -- Červená barva
-    highlight.OutlineColor = Color3.new(1, 1, 1) -- Bílá barva
-    highlight.DepthMode = Enum.HighlightDepthMode.Always -- Viditelnost přes zdi
-    highlight.Parent = character -- Přidání do modelu hráče
+local function highlightHead(character)
+    -- Najdeme hlavu hráče
+    local head = character:FindFirstChild("Head")
+    if head then
+        -- Vytvoření nového Highlight objektu
+        local highlight = Instance.new("Highlight")
+        highlight.Name = "HeadHighlight"
+        highlight.FillColor = Color3.new(1, 0, 0) -- Červená barva
+        highlight.OutlineColor = Color3.new(1, 1, 1) -- Bílá barva
+        highlight.DepthMode = Enum.HighlightDepthMode.Always -- Viditelnost přes zdi
+        highlight.Adornee = head -- Zaměření zvýraznění na hlavu
+        highlight.Parent = head -- Přidání do hlavy hráče
+    end
 end
 
--- Zvýraznění všech aktuálních hráčů
+-- Zvýraznění hlav všech aktuálních hráčů
 for _, player in pairs(game.Players:GetPlayers()) do
     if player.Character then
-        highlightPlayer(player.Character)
+        highlightHead(player.Character)
     end
     player.CharacterAdded:Connect(function(character)
-        highlightPlayer(character)
+        highlightHead(character)
     end)
 end
 
--- Zvýraznění hráčů, kteří se připojí později
+-- Zvýraznění hlav hráčů, kteří se připojí později
 game.Players.PlayerAdded:Connect(function(player)
-    p
-
+    player.CharacterAdded:Connect(function(character)
+        highlightHead(character)
+    end)
+end)
