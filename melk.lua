@@ -1,4 +1,4 @@
--- Skript pro zvýraznění všech hráčů
+-- Skript pro zvýraznění všech hráč
 
 -- Funkce pro vytvoření highlight efektu
 local function highlightPlayer(player)
